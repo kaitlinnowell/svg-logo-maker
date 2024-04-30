@@ -54,9 +54,7 @@ function generateSVG(text, textColor, shape, color) {
     newShape.setColor(color);
     newShape.setText(text);
     newShape.setTextColor(textColor);
-    console.log(newShape.color, newShape.text, newShape.textColor)
     data = newShape.drawShape();
-    console.log(data)
     fs.writeFileSync("./examples/logo.svg", data);
 }
 
@@ -65,6 +63,12 @@ function init() {
     inquirer.prompt(questions).then((response) => {
         generateSVG(response.text, response.textColor, response.shape, response.color)
     })
+    .catch((error) => {
+        // Execution will jump to this callback function when an exception occurs in any of the previous promises in the
+        // chain.
+        console.log(error);
+        console.log('Incorrect input value.');
+      });
 }
 
 // Function call to initialize app
